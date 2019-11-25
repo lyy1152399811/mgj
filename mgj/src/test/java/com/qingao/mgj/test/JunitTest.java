@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class JunitTest {
 	@Test
 	public void test(){
-		
+		System.out.println(1);
 	}
 
 }
