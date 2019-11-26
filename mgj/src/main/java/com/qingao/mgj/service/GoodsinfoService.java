@@ -24,10 +24,19 @@ public class GoodsinfoService {
 	private GoodspriceMapper goodspriceMapper;
 
 	/*
+	 * 商户注册
+	 */
+	public void readyresiger(){
+		
+		
+	} 
+	
+	
+	/*
 	 * 添加商品信息ceshi
 	 */
 	@Transactional
-	public boolean readyInsertGoods(Goodsinfo goodsinfo, List<Goodsprice> goodsprice, Goodsimage goodsimage) {
+	public boolean readyInsertGoods(Goodsinfo goodsinfo, List<Goodsprice> goodsprice, Goodsimage goodsimage){
 
 		goodsinfoMapper.insert(goodsinfo);
 
