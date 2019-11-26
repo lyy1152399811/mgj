@@ -36,7 +36,7 @@ public class Mgj_Controller {
 	public long getcollectioncount(int gdid){
 		return service.goodscollectioncount(gdid); 
 	}
-
+ 
 	/*
 	 * 查询user收藏过哪些商品，返回GoodscollectionKey类型集合
 	 */
