@@ -3,10 +3,14 @@ package com.qingao.mgj.mapper;
 import com.qingao.mgj.pojo.Orderinfo;
 import com.qingao.mgj.pojo.OrderinfoExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 public interface OrderinfoMapper {
+	List<Map> selectfororderinfo(int stid);
+	
     long countByExample(OrderinfoExample example);
 
     int deleteByExample(OrderinfoExample example);
