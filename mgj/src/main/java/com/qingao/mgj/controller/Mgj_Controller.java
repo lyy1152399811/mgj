@@ -53,6 +53,6 @@ public class Mgj_Controller {
 	 */
 	public List<Map> DeliverGoods(HttpSession session){
 		int stid=(int)session.getAttribute("adid");
-		return service.DeliverGoods(stid);
+		return service.DeliverGoods(stid); 
 	}
 }
