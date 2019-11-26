@@ -24,7 +24,6 @@ public class JunitTest {
 	public void test(){
 		AreainfoExample example=new AreainfoExample();
 		
-		
 		List<Areainfo> list=areainfoMapper.selectByExample(example);
 		for (Areainfo areainfo : list) {
 			System.out.println(areainfo.getAname());
