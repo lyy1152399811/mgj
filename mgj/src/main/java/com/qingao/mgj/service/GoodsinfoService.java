@@ -23,7 +23,7 @@ public class GoodsinfoService {
 	private GoodspriceMapper goodspriceMapper;
 
 	/*
-	 * 添加商品信息
+	 * 添加商品信息ceshi
 	 */
 	public boolean readyInsertGoods(Goodsinfo goodsinfo, List<Goodsprice> goodsprice, Goodsimage goodsimage) {
 
