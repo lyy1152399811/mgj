@@ -1,6 +1,7 @@
 package com.qingao.mgj.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -47,4 +48,11 @@ public class Mgj_Controller {
 		return service.changecolor(userid);
 	}
 	
+	/*
+	 * 客户订单管理，商户登陆后有订单就处理，没有不弹出（点击发货），通过商户登录实现.
+	 */
+	public List<Map> DeliverGoods(HttpSession session){
+		int stid=(int)session.getAttribute("adid");
+		return service.DeliverGoods(stid);
+	}
 }
