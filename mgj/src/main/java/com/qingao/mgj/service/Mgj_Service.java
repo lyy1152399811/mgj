@@ -16,6 +16,9 @@ public class Mgj_Service {
 	@Autowired
 	GoodscollectionMapper collection;
 	
+	/*
+	 * 查询该user是否已收藏该商品，若未收藏则收藏，若已收藏则取消收藏
+	 */
 	@Transactional
 	public void goodscollection(int gdid,int userid){
 			
@@ -32,12 +35,18 @@ public class Mgj_Service {
 		}			
 	}
 	
+	/*
+	 * 查询某商品被的收藏次数
+	 */
 	public long goodscollectioncount(int gdid){
 		GoodscollectionExample example=new GoodscollectionExample();
 		example.createCriteria().andGdidEqualTo(gdid);		
 		return collection.countByExample(example);
 	}
 	
+	/*
+	 * 查询user收藏过哪些商品，返回GoodscollectionKey类型集合
+	 */
 	public List<GoodscollectionKey> changecolor(int userid){
 		GoodscollectionExample example=new GoodscollectionExample();
 		example.createCriteria().andGdidEqualTo(userid);
