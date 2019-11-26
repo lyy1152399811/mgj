@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 public interface GoodsinfoMapper {
+	
+	int insertALL(Goodsinfo record);
+	
     long countByExample(GoodsinfoExample example);
 
     int deleteByExample(GoodsinfoExample example);

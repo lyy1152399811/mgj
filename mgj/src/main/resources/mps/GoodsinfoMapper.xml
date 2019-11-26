@@ -222,4 +222,11 @@
       order by ${orderByClause}
     </if>
   </select>
+  <insert id="insertALL"  parameterType="com.qingao.mgj.pojo.Goodsinfo">
+  <selectKey keyColumn="gdid" keyProperty="gdid" resultType="int">
+   select LAST_INSERT_ID()
+  </selectKey>
+  insert into goodsinfo (gdname,stid,gtkeywords,gtdate)
+  values(#{gdname},#{stid},#{gtkeywords},#{gtdate})
+	 </insert>
 </mapper>
