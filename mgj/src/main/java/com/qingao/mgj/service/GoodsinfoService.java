@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.qingao.mgj.mapper.GoodsimageMapper;
@@ -23,8 +24,9 @@ public class GoodsinfoService {
 	private GoodspriceMapper goodspriceMapper;
 
 	/*
-	 * 添加商品信息
+	 * 添加商品信息ceshi
 	 */
+	@Transactional
 	public boolean readyInsertGoods(Goodsinfo goodsinfo, List<Goodsprice> goodsprice, Goodsimage goodsimage) {
 
 		goodsinfoMapper.insert(goodsinfo);
