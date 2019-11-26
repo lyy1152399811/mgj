@@ -93,7 +93,7 @@ public class GoodsinfoService {
 	@Transactional
 	public boolean readyInsertGoods(Goodsinfo goodsinfo, List<Goodsprice> goodsprice, Goodsimage goodsimage) {
 
-		goodsinfoMapper.insert(goodsinfo);
+		goodsinfoMapper.insertALL(goodsinfo);
 
 		for (Goodsprice g : goodsprice) {
 			g.setGdid(goodsinfo.getGdid());

@@ -64,6 +64,8 @@ public class GoodsinfoController {
 	 */
 	public boolean doInsertGoods(Goodsinfo goodsinfo, HttpSession httpSession, List<Goodsprice> goodsprice,
 			Goodsimage goodsimage) {
+//		goodsinfo.setStid((int)httpSession.getAttribute("Admin"));
+		
 		return goodsinfoService.readyInsertGoods(goodsinfo, goodsprice, goodsimage);
 	}
 }
