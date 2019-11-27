@@ -66,9 +66,9 @@ public class Mgj_Controller {
 	 * 点击发货，删除待发货商品。
 	 */
 	@RequestMapping("deletedelivergoods")
-	public void DeleteDeliverGoods(String olid){
+	public void DeleteDeliverGoods(String olid,String ofid){
 
-		service.DeleteDeliverGoods(olid);
+		service.DeleteDeliverGoods(olid,ofid);
 
 	}
 }
