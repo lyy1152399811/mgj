@@ -24,7 +24,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -56,7 +57,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -74,7 +76,8 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		ofid, userid, ofdate, ofstate, address, recipient, contactnumber
+		ofid, userid, ofdate, ofstate, address, recipient,
+		contactnumber
 	</sql>
 	<select id="selectByExample" parameterType="com.qingao.mgj.pojo.OrderinfoExample"
 		resultMap="BaseResultMap">
@@ -99,7 +102,8 @@
 		where ofid = #{ofid,jdbcType=VARCHAR}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from orderinfo
+		delete from
+		orderinfo
 		where ofid = #{ofid,jdbcType=VARCHAR}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.qingao.mgj.pojo.OrderinfoExample">
@@ -109,12 +113,15 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.qingao.mgj.pojo.Orderinfo">
-		insert into orderinfo (ofid, userid, ofdate,
+		insert into orderinfo (ofid,
+		userid, ofdate,
 		ofstate, address, recipient,
 		contactnumber)
-		values (#{ofid,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER},
+		values
+		(#{ofid,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER},
 		#{ofdate,jdbcType=DATE},
-		#{ofstate,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR},
+		#{ofstate,jdbcType=INTEGER},
+		#{address,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR},
 		#{contactnumber,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.qingao.mgj.pojo.Orderinfo">
@@ -205,12 +212,18 @@
 	<update id="updateByExample" parameterType="map">
 		update orderinfo
 		set ofid = #{record.ofid,jdbcType=VARCHAR},
-		userid = #{record.userid,jdbcType=INTEGER},
-		ofdate = #{record.ofdate,jdbcType=DATE},
-		ofstate = #{record.ofstate,jdbcType=INTEGER},
-		address = #{record.address,jdbcType=VARCHAR},
-		recipient = #{record.recipient,jdbcType=VARCHAR},
-		contactnumber = #{record.contactnumber,jdbcType=VARCHAR}
+		userid =
+		#{record.userid,jdbcType=INTEGER},
+		ofdate =
+		#{record.ofdate,jdbcType=DATE},
+		ofstate =
+		#{record.ofstate,jdbcType=INTEGER},
+		address =
+		#{record.address,jdbcType=VARCHAR},
+		recipient =
+		#{record.recipient,jdbcType=VARCHAR},
+		contactnumber =
+		#{record.contactnumber,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -242,11 +255,15 @@
 	<update id="updateByPrimaryKey" parameterType="com.qingao.mgj.pojo.Orderinfo">
 		update orderinfo
 		set userid = #{userid,jdbcType=INTEGER},
-		ofdate = #{ofdate,jdbcType=DATE},
+		ofdate =
+		#{ofdate,jdbcType=DATE},
 		ofstate = #{ofstate,jdbcType=INTEGER},
-		address = #{address,jdbcType=VARCHAR},
-		recipient = #{recipient,jdbcType=VARCHAR},
-		contactnumber = #{contactnumber,jdbcType=VARCHAR}
+		address
+		= #{address,jdbcType=VARCHAR},
+		recipient =
+		#{recipient,jdbcType=VARCHAR},
+		contactnumber =
+		#{contactnumber,jdbcType=VARCHAR}
 		where ofid = #{ofid,jdbcType=VARCHAR}
 	</update>
 	<select id="selectByExampleWithRowbounds" parameterType="com.qingao.mgj.pojo.OrderinfoExample"
@@ -266,10 +283,27 @@
 	</select>
 
 	<select id="selectfororderinfo" resultType="map">
-		SELECT i.*,gi.`gdname`,size.`gstext`,l.`gdcount` FROM orderinfo i
-		JOIN orderlist l ON l.`ofid`=i.`ofid`
-		JOIN goodsinfo gi ON gi.`gdid`=l.`gdid`
-		JOIN goodssize size ON l.`gsid`=size.`gsid`
-		WHERE i.`ofstate`=2 AND stid=#{stid}
+		SELECT
+		u.`logname`,
+		i.ofid,
+		i.ofdate,
+		i.`address`,
+		i.`recipient`,
+		i.`contactnumber`,
+		gi.`gdname`,
+		size.`gstext`,
+		l.`gdcount`,
+		l.`olid`
+		FROM
+		orderinfo i
+		JOIN orderlist l
+		ON l.`ofid` = i.`ofid`
+		JOIN goodsinfo gi
+		ON gi.`gdid` = l.`gdid`
+		JOIN goodssize size
+		ON l.`gsid` = size.`gsid`
+		JOIN USER u
+		ON u.`userid`=i.`userid`
+		WHERE i.`ofstate` = 2 AND stid=#{stid}
 	</select>
 </mapper>
