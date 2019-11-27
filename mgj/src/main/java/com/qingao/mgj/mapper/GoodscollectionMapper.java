@@ -3,6 +3,8 @@ package com.qingao.mgj.mapper;
 import com.qingao.mgj.pojo.GoodscollectionExample;
 import com.qingao.mgj.pojo.GoodscollectionKey;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -24,4 +26,6 @@ public interface GoodscollectionMapper {
     int updateByExampleSelective(@Param("record") GoodscollectionKey record, @Param("example") GoodscollectionExample example);
 
     int updateByExample(@Param("record") GoodscollectionKey record, @Param("example") GoodscollectionExample example);
+    
+    List<Map> selectallcollection(GoodscollectionExample example,RowBounds rowBounds);
 }

@@ -1,5 +1,6 @@
 package com.qingao.mgj.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,5 +71,24 @@ public class Mgj_Controller {
 
 		service.DeleteDeliverGoods(olid,ofid);
 
+	}
+	/*
+	 * 商品图片瀑布流
+	 */
+	@RequestMapping("getimage")
+	public Object getimage(int pagenum){
+		Map a=new HashMap();
+		a.put("images", service.getAllGoodsimageForAjax(pagenum));
+		a.put("pagenum1", pagenum);
+		a.put("count", service.getGoodsinfoesCount());
+		return a;
+	}
+	
+	/*
+	 * 显示商品被收藏次数
+	 */
+	@RequestMapping("getcollectionforajax")
+	public List<Map> getcollectionforajax(int pagenum){
+		return service.getcollectionforajax(pagenum);
 	}
 }

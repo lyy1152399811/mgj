@@ -3,6 +3,14 @@ package com.qingao.mgj.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
+import com.qingao.mgj.mapper.GoodsinfoMapper;
+
+import com.qingao.mgj.pojo.GoodsinfoExample;
+
+import com.qingao.mgj.mapper.App_Goodsimage_Mapper;
+
+import com.qingao.mgj.pojo.GoodsimageExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +33,13 @@ public class Mgj_Service {
 	OrderinfoMapper orderinfo;
 	
 	@Autowired
+	private GoodsinfoMapper goodsinfo;
+	
+	@Autowired
 	OrderlistMapper orderlist;
+	
+	@Autowired
+	private App_Goodsimage_Mapper goodsimage;
 	
 	/*
 	 * 查询该user是否已收藏该商品，若未收藏则收藏，若已收藏则取消收藏
@@ -86,5 +100,40 @@ public class Mgj_Service {
 			record.setOfstate(3);
 			orderinfo.updateByPrimaryKeySelective(record);
 		}
+	}
+	
+	/*
+	 * 商品图片瀑布流
+	 */
+	public List<Map> getAllGoodsimageForAjax(int pagenum){
+		
+		GoodsimageExample example=new GoodsimageExample();
+		int number=pagenum;
+		int limit=16;
+		int offset=(number-1)*limit;		
+		RowBounds rowBounds=new RowBounds(offset, limit);
+		return goodsimage.getAllGoodsimage(example, rowBounds);
+	}
+	
+	/*
+	 * 得到瀑布流页数
+	 */
+	public int getGoodsinfoesCount(){
+		GoodsinfoExample example=new GoodsinfoExample();
+		return (int) (goodsinfo.countByExample(example)%16==0?goodsinfo.countByExample(example)/16:(goodsinfo.countByExample(example)/16)+1);
+		 
+	}
+	
+	/*
+	 * 显示商品被收藏次数
+	 */	
+	public List<Map> getcollectionforajax(int pagenum){
+		
+		GoodscollectionExample example=new GoodscollectionExample();
+		int number=pagenum;
+		int limit=16;
+		int offset=(number-1)*limit;		
+		RowBounds rowBounds=new RowBounds(offset, limit);
+		return collection.selectallcollection(example, rowBounds);
 	}
 }
