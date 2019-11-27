@@ -52,7 +52,7 @@ public class Mgj_Controller {
 	 * 客户订单管理，商户登陆后有订单就处理，没有不弹出（点击发货），通过商户登录实现.
 	 */
 	public List<Map> DeliverGoods(HttpSession session){
-		int stid=(int)session.getAttribute("adid");
+		int stid=(int)session.getAttribute("stid");
 		return service.DeliverGoods(stid); 
 	}
 }
