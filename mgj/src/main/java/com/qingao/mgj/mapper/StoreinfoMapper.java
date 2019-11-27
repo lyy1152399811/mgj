@@ -30,4 +30,5 @@ public interface StoreinfoMapper {
     int updateByPrimaryKeySelective(Storeinfo record);
 
     int updateByPrimaryKey(Storeinfo record);
+    int storeinsertALL(Storeinfo record);
 }

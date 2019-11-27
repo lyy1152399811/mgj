@@ -31,5 +31,5 @@ public interface GoodsinfoMapper {
 
     int updateByPrimaryKey(Goodsinfo record);
     
-    int insertAll(Goodsinfo record);
+    int insertALL(Goodsinfo record);
 }
