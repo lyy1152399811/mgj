@@ -1,5 +1,6 @@
 package com.qingao.mgj.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,11 +45,11 @@ public class GoodsinfoService {
 	public boolean readyTestAdmin(String adname) {
 		AdminExample example = new AdminExample();
 		example.createCriteria().andAdnameEqualTo(adname);
-	    List<Admin> list= adminMapper.selectByExample(example);
-	    if(list==null||list.size()==0){
-	    	return false;
-	    }
-	    return true;
+		List<Admin> list = adminMapper.selectByExample(example);
+		if (list == null || list.size() == 0) {
+			return false;
+		}
+		return true;
 	}
 
 	/*
@@ -65,44 +66,48 @@ public class GoodsinfoService {
 		admin.setAdpassword(new Md5Hash(admin.getAdpassword(), a).toString());
 		return adminMapper.insert(admin) == 1;
 	}
-	
+
 	/*
 	 * 商户登陆
 	 */
-	
-    public Admin readyLogin(String adname,String password) throws UserNameNotFound, PasswordIsTrue, StatusTypeException{
-    	AdminExample example=new AdminExample();
-    	example.createCriteria().andAdnameEqualTo(adname);
-		List<Admin> list=adminMapper.selectByExample(example);
-		
-		if(list==null||list.size()==0){
+
+	public Admin readyLogin(String adname, String password)
+			throws UserNameNotFound, PasswordIsTrue, StatusTypeException {
+		AdminExample example = new AdminExample();
+		example.createCriteria().andAdnameEqualTo(adname);
+		List<Admin> list = adminMapper.selectByExample(example);
+
+		if (list == null || list.size() == 0) {
 			throw new UserNameNotFound();
 		}
-		String yan=list.get(0).getAdsalt();
-		String mima=new Md5Hash(password,yan).toString();
-		if(!mima.equals(list.get(0).getAdpassword())){
+		String yan = list.get(0).getAdsalt();
+		String mima = new Md5Hash(password, yan).toString();
+		if (!mima.equals(list.get(0).getAdpassword())) {
 			throw new PasswordIsTrue();
 		}
-		if(list.get(0).getAdstatus()!=0){
+		if (list.get(0).getAdstatus() != 0) {
 			throw new StatusTypeException();
 		}
 		return list.get(0);
-    }
+	}
+
 	/*
 	 * 添加商品信息ceshi
 	 */
 	@Transactional
-	public boolean readyInsertGoods(Goodsinfo goodsinfo, List<Goodsprice> goodsprice, Goodsimage goodsimage) {
-
+	public boolean readyInsertGoods(Goodsinfo goodsinfo, Goodsprice goodsprice, Goodsimage goodsimage) {
+		goodsinfo.setGtdate(new Date());
 		goodsinfoMapper.insertALL(goodsinfo);
 
-		for (Goodsprice g : goodsprice) {
-			g.setGdid(goodsinfo.getGdid());
-			goodspriceMapper.insert(g);
-		}
+		
+		goodsprice.setGdid(goodsinfo.getGdid());
+			goodspriceMapper.insert(goodsprice);
+		
 
 		goodsimage.setGdid(goodsinfo.getGdid());
+		goodsimage.setGimgtype(1);
 		goodsimageMapper.insert(goodsimage);
+		
 		return true;
 	}
 

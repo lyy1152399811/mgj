@@ -6,7 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qingao.mgj.exception.PasswordIsTrue;
@@ -22,6 +25,8 @@ import com.qingao.mgj.pojo.Goodsinfo;
 import com.qingao.mgj.pojo.Goodsprice;
 import com.qingao.mgj.pojo.Storeinfo;
 import com.qingao.mgj.service.GoodsinfoService;
+
+
 
 @RestController
 @RequestMapping("/mgjstore")
@@ -64,12 +69,21 @@ public class GoodsinfoController {
 		}
 		return 0;
 	}
-
+@PostMapping("getsession")
+public Admin getsession(HttpSession httpSession){
+	Admin a =(Admin) httpSession.getAttribute("Admin");
+	return a;
+}
 	/*
 	 * 添加商品信息
 	 */
-	public boolean doInsertGoods(Goodsinfo goodsinfo, HttpSession httpSession, List<Goodsprice> goodsprice,
-			Goodsimage goodsimage) {
+	@PostMapping("insertgoods")
+	
+	public boolean doInsertGoods(Goodsinfo goodsinfo, HttpSession httpSession, Goodsprice goodsprice,
+			 Goodsimage goodsimage) {
+
+	
+		System.out.println(goodsprice);
 		Admin ad=(Admin) httpSession.getAttribute("Admin");
 		goodsinfo.setStid(ad.getStid());
 		
