@@ -266,7 +266,7 @@
 	</select>
 
 	<select id="selectfororderinfo" resultType="map">
-		SELECT i.*,gi.`gdname`,size.`gstext`,l.`gdcount` FROM orderinfo i
+		SELECT i.*,gi.`gdname`,size.`gstext`,l.`gdcount`,l.`olid` FROM orderinfo i
 		JOIN orderlist l ON l.`ofid`=i.`ofid`
 		JOIN goodsinfo gi ON gi.`gdid`=l.`gdid`
 		JOIN goodssize size ON l.`gsid`=size.`gsid`
