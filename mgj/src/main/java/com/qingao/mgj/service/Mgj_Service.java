@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qingao.mgj.mapper.GoodscollectionMapper;
 import com.qingao.mgj.mapper.OrderinfoMapper;
+import com.qingao.mgj.mapper.OrderlistMapper;
 import com.qingao.mgj.pojo.GoodscollectionExample;
 import com.qingao.mgj.pojo.GoodscollectionKey;
 
@@ -20,6 +21,9 @@ public class Mgj_Service {
 	
 	@Autowired
 	OrderinfoMapper orderinfo;
+	
+	@Autowired
+	OrderlistMapper orderlist;
 	
 	/*
 	 * 查询该user是否已收藏该商品，若未收藏则收藏，若已收藏则取消收藏
@@ -64,5 +68,14 @@ public class Mgj_Service {
 	 */
 	public List<Map> DeliverGoods(int stid){
 		return orderinfo.selectfororderinfo(stid);
+	}
+	
+	/*
+	 * 点击发货，删除待发货商品。
+	 */
+	public void DeleteDeliverGoods(String olid){
+			
+		orderlist.deleteByPrimaryKey(olid);
+
 	}
 }
