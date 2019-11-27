@@ -54,7 +54,7 @@ public class Mgj_Service {
 	 */
 	public List<GoodscollectionKey> changecolor(int userid){
 		GoodscollectionExample example=new GoodscollectionExample();
-		example.createCriteria().andGdidEqualTo(userid);
+		example.createCriteria().andUseridEqualTo(userid);
 		List<GoodscollectionKey> key=collection.selectByExample(example);
 		return key;
 	}

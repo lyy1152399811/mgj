@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qingao.mgj.exception.PasswordIsTrue;
@@ -22,6 +24,7 @@ import com.qingao.mgj.pojo.Storeinfo;
 import com.qingao.mgj.service.GoodsinfoService;
 
 @RestController
+@RequestMapping("/mgjstore")
 public class GoodsinfoController {
 
 	@Autowired
@@ -30,6 +33,7 @@ public class GoodsinfoController {
 	/*
 	 * 注册验证
 	 */
+	@PostMapping("testregister")
 	public boolean doTestAdmin(String adname) {
 		return goodsinfoService.readyTestAdmin(adname);
 	}
@@ -37,6 +41,7 @@ public class GoodsinfoController {
 	/*
 	 * 注册商户
 	 */
+	@PostMapping("register")
 	public boolean doResigerAdmmin(Admin admin, Storeinfo storeinfo) {
 		return goodsinfoService.readyresiger(admin, storeinfo);
 	}
@@ -44,11 +49,12 @@ public class GoodsinfoController {
 	/*
 	 * 商户登陆
 	 */
+	@PostMapping("login")
 	public int doLogin(String adname,String password,HttpSession httpSession) {
 		Admin admin;
 		try {
 			admin=goodsinfoService.readyLogin(adname,password);
-			httpSession.setAttribute("Admin",admin.getStid());
+			httpSession.setAttribute("Admin",admin);
 		} catch (UserNameNotFound e) {
 			return 1;
 		} catch (PasswordIsTrue e) {
@@ -64,7 +70,8 @@ public class GoodsinfoController {
 	 */
 	public boolean doInsertGoods(Goodsinfo goodsinfo, HttpSession httpSession, List<Goodsprice> goodsprice,
 			Goodsimage goodsimage) {
-//		goodsinfo.setStid((int)httpSession.getAttribute("Admin"));
+		Admin ad=(Admin) httpSession.getAttribute("Admin");
+		goodsinfo.setStid(ad.getStid());
 		
 		return goodsinfoService.readyInsertGoods(goodsinfo, goodsprice, goodsimage);
 	}

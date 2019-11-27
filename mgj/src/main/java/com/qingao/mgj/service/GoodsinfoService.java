@@ -57,7 +57,7 @@ public class GoodsinfoService {
 	@Transactional
 	public boolean readyresiger(Admin admin, Storeinfo storeinfo) {
 		storeinfo.setStareaid(12);
-		storeinfoMapper.storeinsertAll(storeinfo);
+		storeinfoMapper.storeinsertALL(storeinfo);
 		admin.setStid(storeinfo.getStid());
 		String a = UUID.randomUUID().toString();
 		admin.setAdsalt(a);
@@ -69,6 +69,7 @@ public class GoodsinfoService {
 	/*
 	 * 商户登陆
 	 */
+	
     public Admin readyLogin(String adname,String password) throws UserNameNotFound, PasswordIsTrue, StatusTypeException{
     	AdminExample example=new AdminExample();
     	example.createCriteria().andAdnameEqualTo(adname);
@@ -102,7 +103,6 @@ public class GoodsinfoService {
 
 		goodsimage.setGdid(goodsinfo.getGdid());
 		goodsimageMapper.insert(goodsimage);
-
 		return true;
 	}
 
