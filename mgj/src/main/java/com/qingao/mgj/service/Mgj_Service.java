@@ -12,6 +12,8 @@ import com.qingao.mgj.mapper.OrderinfoMapper;
 import com.qingao.mgj.mapper.OrderlistMapper;
 import com.qingao.mgj.pojo.GoodscollectionExample;
 import com.qingao.mgj.pojo.GoodscollectionKey;
+import com.qingao.mgj.pojo.Orderinfo;
+import com.qingao.mgj.pojo.OrderlistExample;
 
 @Service
 public class Mgj_Service {
@@ -73,9 +75,16 @@ public class Mgj_Service {
 	/*
 	 * 点击发货，删除待发货商品。
 	 */
-	public void DeleteDeliverGoods(String olid){
+	public void DeleteDeliverGoods(String olid,String ofid){
 			
 		orderlist.deleteByPrimaryKey(olid);
-
+		OrderlistExample example=new OrderlistExample();
+		example.createCriteria().andOfidEqualTo(ofid);
+		if(orderlist.selectByExample(example).size()==0){
+			Orderinfo record=new Orderinfo();
+			record.setOfid(ofid);
+			record.setOfstate(3);
+			orderinfo.updateByPrimaryKeySelective(record);
+		}
 	}
 }
