@@ -217,7 +217,7 @@ public class Mgj_Controller {
 	 */
 	@RequestMapping("kaptch")
 	public boolean kaptch(String jj,HttpSession session){
-		String kaptch=(String) session.getAttribute("vrifyCode");	
+		String kaptch=(String) session.getAttribute("keycode");	
 		return jj.equals(kaptch);
 	}
 
