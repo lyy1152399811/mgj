@@ -19,7 +19,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -51,7 +52,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -87,9 +89,11 @@
 		</if>
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="com.qingao.mgj.pojo.GoodscollectionKey">
-		delete from goodscollection
+		delete from
+		goodscollection
 		where userid = #{userid,jdbcType=INTEGER}
-		and gdid = #{gdid,jdbcType=INTEGER}
+		and gdid =
+		#{gdid,jdbcType=INTEGER}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.qingao.mgj.pojo.GoodscollectionExample">
 		delete from goodscollection
@@ -98,8 +102,10 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.qingao.mgj.pojo.GoodscollectionKey">
-		insert into goodscollection (userid, gdid)
-		values (#{userid,jdbcType=INTEGER}, #{gdid,jdbcType=INTEGER})
+		insert into goodscollection
+		(userid, gdid)
+		values (#{userid,jdbcType=INTEGER},
+		#{gdid,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" parameterType="com.qingao.mgj.pojo.GoodscollectionKey">
 		insert into goodscollection
@@ -165,13 +171,13 @@
 		</if>
 	</select>
 	<select id="selectallcollection" resultType="map">
-		SELECT a.gdid,CASE
-		b.counts WHEN b.counts IS NOT NULL THEN b.counts ELSE 0
-		END counts FROM
-		goodsinfo a
+		SELECT a.gdid,
+		IFNULL(b.counts,0) AS counts
+		FROM goodsinfo a
 		LEFT JOIN
-		(SELECT gdid,COUNT(`userid`) counts FROM
-		goodscollection GROUP BY `gdid`) b
-		ON a.`gdid`=b.gdid GROUP BY a.gdid
+		(SELECT
+		gdid,COUNT(`userid`) counts FROM goodscollection GROUP BY `gdid`) b
+		ON
+		a.`gdid`=b.gdid GROUP BY a.gdid
 	</select>
 </mapper>
