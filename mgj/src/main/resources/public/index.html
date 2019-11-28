@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>main.html</title>
+
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css"
+	href="/springmvc190806/dist/css/bootstrap.min.css">
+<style type="text/css">
+.container {
+	height: 660px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.toolbar_left {
+	height: 100%;
+	width: 15%;
+	background-color: #1B1B1B;
+	float: left;
+	padding:20px;
+	text-align: center;
+	
+}
+.toolbar_left .label{
+	
+	padding:10px;
+	
+	margin-top:20px;
+}
+
+
+.dv_main {
+	height: 100%;
+	width: 85%;
+	float: left;
+}
+
+.dv_main iframe {
+	height: 100%;
+	width: 100%;
+	border: 0px
+}
+</style>
+
+
+</head>
+
+<body>
+	
+	
+	<div class="container ">
+		
+		
+		
+		<div class="toolbar_left">
+		<br /> <br />
+		<a href="/springmvc190806/areainfocontroller/getinfoes?pagenum=1" class="label label-danger" target="main">
+		
+			<i class="glyphicon glyphicon-globe"></i> 地区信息管理</a>
+		
+			<br /><br /><br />
+			<a href="/springmvc190806/areainfocontroller/abc" class="label label-success" target="main" >
+			
+			<i class="glyphicon glyphicon-paperclip"></i> 商品信息管理</a> 
+			<br /> <br /><br />
+			<a href="/springmvc190806/areainfocontroller/abc"  class="label label-warning" target="main">
+			<i class="glyphicon glyphicon-apple"></i> 新浪信息管理</a>
+			
+			 <br /><br />
+
+
+
+		</div>
+
+		<div class="dv_main">
+
+			<iframe name="main"></iframe>
+
+
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
