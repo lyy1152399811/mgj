@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.qingao.mgj.mapper.Cart_Mapper">
+	<select id="getCart" resultType="map">
+		SELECT
+		gdinfo.`gdname`,gdimg.`gimgurl`,price.`price`,car.`gdcount`,gdsize.`gstext`,car.`ctid`
+		FROM USER
+		a JOIN cart car ON car.`userid`=a.`userid`
+		JOIN goodsimage
+		gdimg ON gdimg.`gdid`=car.`gdid`
+		JOIN goodsinfo gdinfo ON
+		gdinfo.`gdid`=car.`gdid`
+		JOIN goodssize gdsize ON
+		gdsize.`gsid`=car.`gsid`
+		JOIN goodsprice price ON
+		price.`gdid`=car.`gdid`
+		WHERE gdimg.`gimgtype`=1 AND price.`utid`=1 AND
+		car.userid=#{userid}
+	</select>
+	
+	<select id="getCartForOrder" resultType="map" parameterType="list">
+		SELECT
+		price.`price`,car.`gdcount`,car.`gdid`,car.`gsid`,car.`ctid` FROM USER
+		a JOIN cart car ON car.`userid`=a.`userid`
+		JOIN goodsprice price ON price.`gdid`=car.`gdid`
+		WHERE price.`utid`=1 AND car.`ctid` IN
+		<foreach collection="list" open="(" close=")" separator="," item="ctid" >
+			#{ctid}
+		</foreach>
+	</select>
+</mapper>
