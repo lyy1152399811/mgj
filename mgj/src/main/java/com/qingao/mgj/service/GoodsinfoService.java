@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.qingao.mgj.controller.FileController;
 import com.qingao.mgj.exception.PasswordIsTrue;
 import com.qingao.mgj.exception.StatusTypeException;
 import com.qingao.mgj.exception.UserNameNotFound;
@@ -23,6 +24,7 @@ import com.qingao.mgj.pojo.Admin;
 import com.qingao.mgj.pojo.AdminExample;
 import com.qingao.mgj.pojo.Goodsimage;
 import com.qingao.mgj.pojo.Goodsinfo;
+import com.qingao.mgj.pojo.GoodsinfoExample;
 import com.qingao.mgj.pojo.Goodsprice;
 import com.qingao.mgj.pojo.Storeinfo;
 
@@ -39,7 +41,8 @@ public class GoodsinfoService {
 
 	@Autowired
 	private StoreinfoMapper storeinfoMapper;
-
+@Autowired
+FileController controller;
 	/*
 	 * 验证注册
 	 */
@@ -112,11 +115,16 @@ public class GoodsinfoService {
 		return true;
 	}
 
-	public boolean readytest(List<Goodsprice> goodsprice) {
-		for (Goodsprice goodsprice2 : goodsprice) {
-			goodsprice2.setGdid(786);
-			goodspriceMapper.insert(goodsprice2);
-		}
-		return true;
+//	public boolean readytest(List<Goodsprice> goodsprice) {
+//		for (Goodsprice goodsprice2 : goodsprice) {
+//			goodsprice2.setGdid(786);
+//			goodspriceMapper.insert(goodsprice2);
+//		}
+//		return true;
+//	}
+	public List<Goodsinfo> getimg(String value){
+		GoodsinfoExample example=new GoodsinfoExample();
+		example.createCriteria().andGdnameLike("%"+value+"%");
+		return goodsinfoMapper.selectByExample(example);
 	}
 }

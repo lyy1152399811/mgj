@@ -104,9 +104,9 @@ public Admin getsession(HttpSession httpSession){
 		
 		return goodsinfoService.readyInsertGoods(goodsinfo, goodsprice,goodsimage);
 	}
-	@PostMapping("inserttest")
-	public boolean doInserttest(@RequestBody List<Goodsprice> goodsprice){
-		System.out.println("進入");
-		return goodsinfoService.readytest(goodsprice);
-	}
+//	@PostMapping("inserttest")
+//	public boolean doInserttest(@RequestBody List<Goodsprice> goodsprice){
+//		System.out.println("進入");
+//		return goodsinfoService.readytest(goodsprice);
+//	}
 }
