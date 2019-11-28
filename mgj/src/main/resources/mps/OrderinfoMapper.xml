@@ -304,6 +304,6 @@
 		ON l.`gsid` = size.`gsid`
 		JOIN USER u
 		ON u.`userid`=i.`userid`
-		WHERE i.`ofstate` = 2 AND stid=#{stid}
+		WHERE i.`ofstate` = 2 AND stid=#{stid} AND l.`olid` NOT LIKE '%+%'
 	</select>
 </mapper>

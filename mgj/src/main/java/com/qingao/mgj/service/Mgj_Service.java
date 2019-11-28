@@ -21,6 +21,7 @@ import com.qingao.mgj.mapper.OrderlistMapper;
 import com.qingao.mgj.pojo.GoodscollectionExample;
 import com.qingao.mgj.pojo.GoodscollectionKey;
 import com.qingao.mgj.pojo.Orderinfo;
+import com.qingao.mgj.pojo.Orderlist;
 import com.qingao.mgj.pojo.OrderlistExample;
 
 @Service
@@ -91,9 +92,13 @@ public class Mgj_Service {
 	 */
 	public void DeleteDeliverGoods(String olid,String ofid){
 			
-		orderlist.deleteByPrimaryKey(olid);
+		Orderlist record1=new Orderlist();
+		record1.setOlid(olid);
+		OrderlistExample example1=new OrderlistExample();
+		example1.createCriteria().andOlidEqualTo(olid+"+");
+		orderlist.updateByExampleSelective(record1, example1);
 		OrderlistExample example=new OrderlistExample();
-		example.createCriteria().andOfidEqualTo(ofid);
+		example.createCriteria().andOfidEqualTo(ofid).andOlidNotLike("%+%");
 		if(orderlist.selectByExample(example).size()==0){
 			Orderinfo record=new Orderinfo();
 			record.setOfid(ofid);
