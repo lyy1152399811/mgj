@@ -1,5 +1,6 @@
 package com.qingao.mgj.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.qingao.mgj.exception.PasswordIsTrue;
 import com.qingao.mgj.exception.StatusTypeException;
 import com.qingao.mgj.exception.UserNameNotFound;
@@ -25,6 +28,7 @@ import com.qingao.mgj.pojo.Goodsinfo;
 import com.qingao.mgj.pojo.Goodsprice;
 import com.qingao.mgj.pojo.Storeinfo;
 import com.qingao.mgj.service.GoodsinfoService;
+
 
 
 
@@ -79,14 +83,30 @@ public Admin getsession(HttpSession httpSession){
 	 */
 	@PostMapping("insertgoods")
 	
-	public boolean doInsertGoods(Goodsinfo goodsinfo, HttpSession httpSession, Goodsprice goodsprice,
+	public boolean doInsertGoods(Goodsinfo goodsinfo,String str, HttpSession httpSession,
 			 Goodsimage goodsimage) {
+		List<Goodsprice> goodsprice=new ArrayList();
+		JSONObject json =new JSONObject();
+		goodsprice= json.parseArray(str, Goodsprice.class);
+//        JSONArray jsonArray= JSONArray.parseArray(str);
+// 
+//        for(int i=0;i<jsonArray.size();i++){
+// 
+//        JSONObject jsonResult = jsonArray.getJSONObject(i);
+// 
+//        Goodsprice goods=JSONObject.toJavaObject(jsonResult,Goodsprice.class);
+// 
+//        goodsprice.add(goods);
+//        }
 
-	
-		System.out.println(goodsprice);
 		Admin ad=(Admin) httpSession.getAttribute("Admin");
 		goodsinfo.setStid(ad.getStid());
 		
-		return goodsinfoService.readyInsertGoods(goodsinfo, goodsprice, goodsimage);
+		return goodsinfoService.readyInsertGoods(goodsinfo, goodsprice,goodsimage);
+	}
+	@PostMapping("inserttest")
+	public boolean doInserttest(@RequestBody List<Goodsprice> goodsprice){
+		System.out.println("進入");
+		return goodsinfoService.readytest(goodsprice);
 	}
 }

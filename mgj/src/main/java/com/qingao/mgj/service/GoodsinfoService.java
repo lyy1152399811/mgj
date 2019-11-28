@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qingao.mgj.exception.PasswordIsTrue;
 import com.qingao.mgj.exception.StatusTypeException;
@@ -95,20 +96,27 @@ public class GoodsinfoService {
 	 * 添加商品信息ceshi
 	 */
 	@Transactional
-	public boolean readyInsertGoods(Goodsinfo goodsinfo, Goodsprice goodsprice, Goodsimage goodsimage) {
+	public boolean readyInsertGoods(Goodsinfo goodsinfo,List<Goodsprice> goodsprice, Goodsimage goodsimage) {
 		goodsinfo.setGtdate(new Date());
 		goodsinfoMapper.insertALL(goodsinfo);
 
+		for (Goodsprice goodsprice2 : goodsprice) {
+			goodsprice2.setGdid(goodsinfo.getGdid());
+			goodspriceMapper.insert(goodsprice2);
+		}
 		
-		goodsprice.setGdid(goodsinfo.getGdid());
-			goodspriceMapper.insert(goodsprice);
-		
-
 		goodsimage.setGdid(goodsinfo.getGdid());
 		goodsimage.setGimgtype(1);
 		goodsimageMapper.insert(goodsimage);
-		
+
 		return true;
 	}
 
+	public boolean readytest(List<Goodsprice> goodsprice) {
+		for (Goodsprice goodsprice2 : goodsprice) {
+			goodsprice2.setGdid(786);
+			goodspriceMapper.insert(goodsprice2);
+		}
+		return true;
+	}
 }
