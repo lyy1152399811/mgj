@@ -9,10 +9,18 @@ import javax.servlet.http.HttpSession;
 import com.qingao.mgj.pojo.Admin;
 import com.qingao.mgj.pojo.GoodscollectionKey;
 import com.qingao.mgj.pojo.User;
+
+import com.qingao.mgj.exception.NotFoundLognameException;
+import com.qingao.mgj.exception.PasswordErrorException;
+import com.qingao.mgj.exception.UserStatusException;
+import com.qingao.mgj.pojo.Cart;
+import com.qingao.mgj.pojo.Orderinfo;
+import com.qingao.mgj.pojo.Orderlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qingao.mgj.service.Mgj_Service;
@@ -91,4 +99,158 @@ public class Mgj_Controller {
 	public List<Map> getcollectionforajax(int pagenum){
 		return service.getcollectionforajax(pagenum);
 	}
+	
+	/*
+	 * 通过用户ID查询订单信息
+	 */	
+	@RequestMapping("selectorderinfobyuserid")
+	public List<Orderinfo> selectOrderinfobyuserid(HttpSession session){
+		User jj=(User)session.getAttribute("user");
+		return service.selectOrderinfobyuserid(jj.getUserid());
+	}
+	
+	/*
+	 * 付款界面信息
+	 */	
+	@RequestMapping("selectorderlist")
+	public List<Orderlist> selectorderlist(String ofid){
+		
+		return service.selectOrderListByOfid(ofid);
+	}
+
+	/*
+	 * 生成订单信息
+	 */
+	@RequestMapping("insertorder") 
+	public boolean insertOrdert(HttpSession session,String address,String contactnumber,String recipient,@RequestParam("ctid") List<Integer> ctid){
+		User user=(User) session.getAttribute("user");
+		service.insertOrder(user.getUserid(), address, contactnumber, recipient, ctid);
+		return true;
+	}
+	
+	/*
+	 * 清除用户购物车里的某一个商品
+	 */	
+	@RequestMapping("deletecart")
+	public boolean deleteCart(int ctid){
+		service.deleteCart(ctid);
+		return true;
+	}
+
+	/*
+	 * 购物车某商品的数量加减
+	 */
+	@RequestMapping("changecartcount")
+	public boolean changecartcount(Cart cart){
+		service.updateCart(cart);
+		return true;
+	}
+	
+	/*
+	 * 得到用户购物车信息
+	 */
+	@RequestMapping("getcart")
+	public List<Map> getcart(HttpSession session){
+		User user=(User) session.getAttribute("user");
+		return service.getCart(user.getUserid());
+	}
+
+	/*
+	 * 将商品加入购物车
+	 */
+	@RequestMapping("insertcart")
+	public Object insertcart(Cart cart,HttpSession session){
+		User user=(User) session.getAttribute("user");
+		cart.setUserid(user.getUserid());
+		service.insertCart(cart);
+		return true;
+	}
+	
+	/*
+	 * 退出登录
+	 */	
+	@RequestMapping("removesession")
+	public Object removesession(HttpSession session){
+		session.removeAttribute("user");
+		return null;
+	}
+
+	/*
+	 * 登录得到session
+	 */	
+	@RequestMapping("getsession")
+	public Object getsession(HttpSession session){
+		
+		return session.getAttribute("user");
+	}
+	
+	/*
+	 * 用户登录
+	 */	
+	@RequestMapping("login")
+	public Object login(String logname,String password,HttpSession session){
+		User user;
+		try {
+			user = service.login(logname, password);
+			session.setAttribute("user",user);
+			return 0;
+		} catch (NotFoundLognameException e) {
+			return 1;
+		} catch (PasswordErrorException e) {
+			return 2;
+		} catch (UserStatusException e) {
+			return 3;
+		}		
+	}
+
+	/*
+	 * 登录验证
+	 */
+	@RequestMapping("check")
+	public boolean check(String value){
+		
+		return service.selectOfUserByUsername(value);
+	}
+
+	/*
+	 * 验证码验证
+	 */
+	@RequestMapping("kaptch")
+	public boolean kaptch(String jj,HttpSession session){
+		String kaptch=(String) session.getAttribute("vrifyCode");	
+		return jj.equals(kaptch);
+	}
+
+	/*
+	 * 用户注册
+	 */
+	@RequestMapping("insertofuser")
+	public boolean insertofuser(User users){
+		return service.insertOfUser(users);
+	}
+	
+	/*
+	 * 得到商品尺码
+	 */	
+	@RequestMapping("getgoodssizeforajax")
+	public Object getGoodsSizeForAjax(){
+		return service.getGoodsSizeForAjax();
+	}
+	
+	/*
+	 * 通过商品ID查商品信息
+	 */	
+	@RequestMapping("getgoodsinfobygdid")
+	public Object getGoodsInfoByGdid(int gdid){
+		return service.getGoodsInfoByGdid(gdid);
+	}
+
+	/*
+	 * 关键字查询
+	 */	
+	@RequestMapping("getgoodsinfogdname")
+	public Object getgoodsinfogdname(String keywords){
+		return service.getAllGoodsInfoesForAjax("%"+keywords+"%");
+	}
+	
 }
