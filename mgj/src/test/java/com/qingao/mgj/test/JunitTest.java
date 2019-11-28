@@ -32,22 +32,6 @@ public class JunitTest {
 GoodsinfoMapper a;
 	@Test
 	public void test(){
-		Goodsinfo goodsinfo =new Goodsinfo();
-		goodsinfo.setGdname("测试");
-		goodsinfo.setGtdate(new Date());
-		goodsinfo.setGtkeywords("aa");
-		goodsinfo.setStid(1);
-		System.out.println(goodsinfo.getGdid());
-		
-		List<Goodsprice> goodsprice=new ArrayList();
-		Goodsprice a=new Goodsprice();	
-		a.setPrice(11.0);
-		a.setUtid(1);
-		goodsprice.add(a);
-		Goodsimage goodsimage=new Goodsimage();
-		goodsimage.setGimgtype(1);
-		goodsimage.setGimgurl("aa");
-	    goodsinfoService.readyInsertGoods(goodsinfo, goodsprice, goodsimage);
 	}
 	@Test
 	@Ignore

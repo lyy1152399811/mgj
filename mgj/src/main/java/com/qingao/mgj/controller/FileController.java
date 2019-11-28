@@ -9,15 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+@RestController
 @RequestMapping("/filecontroller")
 public class FileController {
 	@PostMapping("file")
-	@RequestScope
 	public String fileUpload(@RequestParam("file1") MultipartFile[] file1) {
+		System.out.println(file1);
 		String filename=null;
 		for (MultipartFile multipartFile : file1) {
 			String oldname =multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
