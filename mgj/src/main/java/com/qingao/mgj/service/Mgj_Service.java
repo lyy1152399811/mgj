@@ -97,14 +97,6 @@ public class Mgj_Service {
 		}			
 	}
 	
-	/*
-	 * 查询某商品被的收藏次数
-	 */
-	public long goodscollectioncount(int gdid){
-		GoodscollectionExample example=new GoodscollectionExample();
-		example.createCriteria().andGdidEqualTo(gdid);		
-		return collection.countByExample(example);
-	}
 	
 	/*
 	 * 查询user收藏过哪些商品，返回GoodscollectionKey类型集合

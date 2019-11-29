@@ -41,14 +41,6 @@ public class Mgj_Controller {
 		int userid=user.getUserid();
 		service.goodscollection(gdid, userid);
 	}
-
-	/*
-	 * 查询某商品被的收藏次数
-	 */
-	@RequestMapping("getcollectioncount")
-	public long getcollectioncount(int gdid){
-		return service.goodscollectioncount(gdid); 
-	}
  
 	/*
 	 * 查询user收藏过哪些商品，返回GoodscollectionKey类型集合
@@ -64,11 +56,16 @@ public class Mgj_Controller {
 	 * 客户订单管理，商户登陆后有订单就处理，没有不弹出（点击发货），通过商户登录实现.
 	 */
 	@RequestMapping("delivergoods")
-	public List<Map> DeliverGoods(HttpSession session){
-
+	public Map DeliverGoods(HttpSession session){
 		Admin ad=(Admin) session.getAttribute("Admin");
-		return service.DeliverGoods(ad.getStid()); 
-
+		if(ad==null){
+			return null;
+		}else{		
+			Map map=new HashMap();
+			map.put("Admin", ad);
+			map.put("information", service.DeliverGoods(ad.getStid()));
+			return map;
+		}
 	}
 	
 	/*

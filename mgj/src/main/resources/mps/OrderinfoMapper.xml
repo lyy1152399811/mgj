@@ -284,6 +284,7 @@
 
 	<select id="selectfororderinfo" resultType="map">
 		SELECT
+		gi.`stid`,
 		u.`logname`,
 		i.ofid,
 		i.ofdate,
