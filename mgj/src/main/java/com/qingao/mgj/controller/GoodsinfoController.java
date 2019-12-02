@@ -23,9 +23,11 @@ import com.qingao.mgj.mapper.GoodsimageMapper;
 import com.qingao.mgj.mapper.GoodsinfoMapper;
 import com.qingao.mgj.mapper.GoodspriceMapper;
 import com.qingao.mgj.pojo.Admin;
+import com.qingao.mgj.pojo.Carouse;
 import com.qingao.mgj.pojo.Goodsimage;
 import com.qingao.mgj.pojo.Goodsinfo;
 import com.qingao.mgj.pojo.Goodsprice;
+import com.qingao.mgj.pojo.Lunbo;
 import com.qingao.mgj.pojo.Storeinfo;
 import com.qingao.mgj.service.GoodsinfoService;
 
@@ -109,4 +111,25 @@ public Admin getsession(HttpSession httpSession){
 //		System.out.println("進入");
 //		return goodsinfoService.readytest(goodsprice);
 //	}
+	/*
+	 * 获取轮播图
+	 */
+	@PostMapping("dogetimg")
+	public List<Lunbo> dogetimg(){
+		return goodsinfoService.getimg();
+	}
+	/*
+	 * 修改轮播图
+	 */
+	@PostMapping("doupdate")
+	public boolean doUpdate(Lunbo record){
+		return  goodsinfoService.readyUpdate(record);
+	}
+	/*
+	 * 查询添加轮播图
+	 */
+	@PostMapping("doselectimg")
+	public List<Carouse> doSelectImg(){
+	return 	goodsinfoService.readySelectimg();
+	}
 }

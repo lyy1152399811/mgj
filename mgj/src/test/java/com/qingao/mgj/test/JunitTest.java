@@ -14,9 +14,11 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.qingao.mgj.mapper.AreainfoMapper;
+import com.qingao.mgj.mapper.CarouseMapper;
 import com.qingao.mgj.mapper.GoodsinfoMapper;
 import com.qingao.mgj.pojo.Areainfo;
 import com.qingao.mgj.pojo.AreainfoExample;
+import com.qingao.mgj.pojo.Carouse;
 import com.qingao.mgj.pojo.Goodsimage;
 import com.qingao.mgj.pojo.Goodsinfo;
 import com.qingao.mgj.pojo.Goodsprice;
@@ -30,8 +32,14 @@ public class JunitTest {
 	GoodsinfoService goodsinfoService;
 @Autowired
 GoodsinfoMapper a;
+@Autowired
+CarouseMapper car;
 	@Test
 	public void test(){
+		List<Carouse> a= goodsinfoService.readySelectimg();
+		for (Carouse carouse : a) {
+			System.out.println(carouse.getClprice());
+		}
 	}
 	@Test
 	@Ignore
