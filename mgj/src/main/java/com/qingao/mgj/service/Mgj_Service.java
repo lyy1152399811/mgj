@@ -118,16 +118,17 @@ public class Mgj_Service {
 	/*
 	 * 点击发货，删除待发货商品。
 	 */
+	@Transactional
 	public void DeleteDeliverGoods(String olid,String ofid){
 			
 		Orderlist record1=new Orderlist();
-		record1.setOlid(olid);
+		record1.setOlid(olid+"+");
 		OrderlistExample example1=new OrderlistExample();
-		example1.createCriteria().andOlidEqualTo(olid+"+");
+		example1.createCriteria().andOlidEqualTo(olid);
 		orderlist.updateByExampleSelective(record1, example1);
 		OrderlistExample example=new OrderlistExample();
 		example.createCriteria().andOfidEqualTo(ofid).andOlidNotLike("%+%");
-		if(orderlist.selectByExample(example).size()==0){
+		if(orderlist.selectByExample(example).size()==0||orderlist.selectByExample(example)==null){
 			Orderinfo record=new Orderinfo();
 			record.setOfid(ofid);
 			record.setOfstate(3);

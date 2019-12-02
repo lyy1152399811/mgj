@@ -73,7 +73,7 @@ public class Mgj_Controller {
 	 */
 	@RequestMapping("deletedelivergoods")
 	public void DeleteDeliverGoods(String olid,String ofid){
-
+		System.out.println("hh");
 		service.DeleteDeliverGoods(olid,ofid);
 
 	}

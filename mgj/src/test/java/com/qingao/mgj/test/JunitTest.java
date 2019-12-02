@@ -23,6 +23,7 @@ import com.qingao.mgj.pojo.Goodsimage;
 import com.qingao.mgj.pojo.Goodsinfo;
 import com.qingao.mgj.pojo.Goodsprice;
 import com.qingao.mgj.service.GoodsinfoService;
+import com.qingao.mgj.service.Mgj_Service;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,16 +31,22 @@ import com.qingao.mgj.service.GoodsinfoService;
 public class JunitTest {
 	@Autowired
 	GoodsinfoService goodsinfoService;
+	@Autowired
+	Mgj_Service mgj;
 @Autowired
 GoodsinfoMapper a;
 @Autowired
 CarouseMapper car;
 	@Test
 	public void test(){
+
 		List<Carouse> a= goodsinfoService.readySelectimg();
 		for (Carouse carouse : a) {
 			System.out.println(carouse.getClprice());
 		}
+
+		
+
 	}
 	@Test
 	@Ignore
