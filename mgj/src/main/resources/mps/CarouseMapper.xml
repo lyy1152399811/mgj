@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingao.mgj.mapper.CarouseMapper">
+  <resultMap id="BaseResultMap" type="com.qingao.mgj.pojo.Carouse">
+    <id column="clid" jdbcType="INTEGER" property="clid" />
+    <result column="clname" jdbcType="VARCHAR" property="clname" />
+    <result column="climgurl" jdbcType="VARCHAR" property="climgurl" />
+    <result column="cltime" jdbcType="INTEGER" property="cltime" />
+    <result column="clprice" jdbcType="INTEGER" property="clprice" />
+    <result column="cltype" jdbcType="INTEGER" property="cltype" />
+    <result column="stid" jdbcType="INTEGER" property="stid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    clid, clname, climgurl, cltime, clprice, cltype, stid
+  </sql>
+  <select id="selectByExample" parameterType="com.qingao.mgj.pojo.CarouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from carouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carouse
+    where clid = #{clid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from carouse
+    where clid = #{clid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qingao.mgj.pojo.CarouseExample">
+    delete from carouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qingao.mgj.pojo.Carouse">
+    insert into carouse (clid, clname, climgurl, 
+      cltime, clprice, cltype, 
+      stid)
+    values (#{clid,jdbcType=INTEGER}, #{clname,jdbcType=VARCHAR}, #{climgurl,jdbcType=VARCHAR}, 
+      #{cltime,jdbcType=INTEGER}, #{clprice,jdbcType=INTEGER}, #{cltype,jdbcType=INTEGER}, 
+      #{stid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qingao.mgj.pojo.Carouse">
+    insert into carouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clid != null">
+        clid,
+      </if>
+      <if test="clname != null">
+        clname,
+      </if>
+      <if test="climgurl != null">
+        climgurl,
+      </if>
+      <if test="cltime != null">
+        cltime,
+      </if>
+      <if test="clprice != null">
+        clprice,
+      </if>
+      <if test="cltype != null">
+        cltype,
+      </if>
+      <if test="stid != null">
+        stid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clid != null">
+        #{clid,jdbcType=INTEGER},
+      </if>
+      <if test="clname != null">
+        #{clname,jdbcType=VARCHAR},
+      </if>
+      <if test="climgurl != null">
+        #{climgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cltime != null">
+        #{cltime,jdbcType=INTEGER},
+      </if>
+      <if test="clprice != null">
+        #{clprice,jdbcType=INTEGER},
+      </if>
+      <if test="cltype != null">
+        #{cltype,jdbcType=INTEGER},
+      </if>
+      <if test="stid != null">
+        #{stid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qingao.mgj.pojo.CarouseExample" resultType="java.lang.Long">
+    select count(*) from carouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update carouse
+    <set>
+      <if test="record.clid != null">
+        clid = #{record.clid,jdbcType=INTEGER},
+      </if>
+      <if test="record.clname != null">
+        clname = #{record.clname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.climgurl != null">
+        climgurl = #{record.climgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cltime != null">
+        cltime = #{record.cltime,jdbcType=INTEGER},
+      </if>
+      <if test="record.clprice != null">
+        clprice = #{record.clprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.cltype != null">
+        cltype = #{record.cltype,jdbcType=INTEGER},
+      </if>
+      <if test="record.stid != null">
+        stid = #{record.stid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update carouse
+    set clid = #{record.clid,jdbcType=INTEGER},
+      clname = #{record.clname,jdbcType=VARCHAR},
+      climgurl = #{record.climgurl,jdbcType=VARCHAR},
+      cltime = #{record.cltime,jdbcType=INTEGER},
+      clprice = #{record.clprice,jdbcType=INTEGER},
+      cltype = #{record.cltype,jdbcType=INTEGER},
+      stid = #{record.stid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qingao.mgj.pojo.Carouse">
+    update carouse
+    <set>
+      <if test="clname != null">
+        clname = #{clname,jdbcType=VARCHAR},
+      </if>
+      <if test="climgurl != null">
+        climgurl = #{climgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cltime != null">
+        cltime = #{cltime,jdbcType=INTEGER},
+      </if>
+      <if test="clprice != null">
+        clprice = #{clprice,jdbcType=INTEGER},
+      </if>
+      <if test="cltype != null">
+        cltype = #{cltype,jdbcType=INTEGER},
+      </if>
+      <if test="stid != null">
+        stid = #{stid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where clid = #{clid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qingao.mgj.pojo.Carouse">
+    update carouse
+    set clname = #{clname,jdbcType=VARCHAR},
+      climgurl = #{climgurl,jdbcType=VARCHAR},
+      cltime = #{cltime,jdbcType=INTEGER},
+      clprice = #{clprice,jdbcType=INTEGER},
+      cltype = #{cltype,jdbcType=INTEGER},
+      stid = #{stid,jdbcType=INTEGER}
+    where clid = #{clid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.qingao.mgj.pojo.CarouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from carouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
